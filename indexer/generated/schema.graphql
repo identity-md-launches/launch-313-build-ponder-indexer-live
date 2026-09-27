@@ -1,0 +1,602 @@
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+scalar BigInt
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type ViewPageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+}
+
+type Meta {
+  status: JSON
+}
+
+type Query {
+  trade(id: String!): trade
+  trades(where: tradeFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int, offset: Int): tradePage!
+  ticket(id: String!): ticket
+  tickets(where: ticketFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int, offset: Int): ticketPage!
+  tankFill(id: String!): tankFill
+  tankFills(where: tankFillFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int, offset: Int): tankFillPage!
+  potSnapshot(id: String!): potSnapshot
+  potSnapshots(where: potSnapshotFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int, offset: Int): potSnapshotPage!
+  player(address: String!): player
+  players(where: playerFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int, offset: Int): playerPage!
+  dailyVolume(day: String!): dailyVolume
+  dailyVolumes(where: dailyVolumeFilter, orderBy: String, orderDirection: String, before: String, after: String, limit: Int, offset: Int): dailyVolumePage!
+  _meta: Meta
+}
+
+type trade {
+  id: String!
+  hash: String!
+  block: BigInt!
+  timestamp: BigInt!
+  router: String
+  amount0: BigInt!
+  amount1: BigInt!
+  direction: String!
+  sqrtPriceX96: BigInt!
+  tick: Int!
+  ticketId: BigInt
+  player: String
+}
+
+type tradePage {
+  items: [trade!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input tradeFilter {
+  AND: [tradeFilter]
+  OR: [tradeFilter]
+  id: String
+  id_not: String
+  id_in: [String]
+  id_not_in: [String]
+  id_contains: String
+  id_not_contains: String
+  id_starts_with: String
+  id_ends_with: String
+  id_not_starts_with: String
+  id_not_ends_with: String
+  id_contains_nocase: String
+  id_not_contains_nocase: String
+  id_starts_with_nocase: String
+  id_ends_with_nocase: String
+  id_not_starts_with_nocase: String
+  id_not_ends_with_nocase: String
+  hash: String
+  hash_not: String
+  hash_in: [String]
+  hash_not_in: [String]
+  hash_contains: String
+  hash_not_contains: String
+  hash_starts_with: String
+  hash_ends_with: String
+  hash_not_starts_with: String
+  hash_not_ends_with: String
+  block: BigInt
+  block_not: BigInt
+  block_in: [BigInt]
+  block_not_in: [BigInt]
+  block_gt: BigInt
+  block_lt: BigInt
+  block_gte: BigInt
+  block_lte: BigInt
+  timestamp: BigInt
+  timestamp_not: BigInt
+  timestamp_in: [BigInt]
+  timestamp_not_in: [BigInt]
+  timestamp_gt: BigInt
+  timestamp_lt: BigInt
+  timestamp_gte: BigInt
+  timestamp_lte: BigInt
+  router: String
+  router_not: String
+  router_in: [String]
+  router_not_in: [String]
+  router_contains: String
+  router_not_contains: String
+  router_starts_with: String
+  router_ends_with: String
+  router_not_starts_with: String
+  router_not_ends_with: String
+  amount0: BigInt
+  amount0_not: BigInt
+  amount0_in: [BigInt]
+  amount0_not_in: [BigInt]
+  amount0_gt: BigInt
+  amount0_lt: BigInt
+  amount0_gte: BigInt
+  amount0_lte: BigInt
+  amount1: BigInt
+  amount1_not: BigInt
+  amount1_in: [BigInt]
+  amount1_not_in: [BigInt]
+  amount1_gt: BigInt
+  amount1_lt: BigInt
+  amount1_gte: BigInt
+  amount1_lte: BigInt
+  direction: String
+  direction_not: String
+  direction_in: [String]
+  direction_not_in: [String]
+  direction_contains: String
+  direction_not_contains: String
+  direction_starts_with: String
+  direction_ends_with: String
+  direction_not_starts_with: String
+  direction_not_ends_with: String
+  direction_contains_nocase: String
+  direction_not_contains_nocase: String
+  direction_starts_with_nocase: String
+  direction_ends_with_nocase: String
+  direction_not_starts_with_nocase: String
+  direction_not_ends_with_nocase: String
+  sqrtPriceX96: BigInt
+  sqrtPriceX96_not: BigInt
+  sqrtPriceX96_in: [BigInt]
+  sqrtPriceX96_not_in: [BigInt]
+  sqrtPriceX96_gt: BigInt
+  sqrtPriceX96_lt: BigInt
+  sqrtPriceX96_gte: BigInt
+  sqrtPriceX96_lte: BigInt
+  tick: Int
+  tick_not: Int
+  tick_in: [Int]
+  tick_not_in: [Int]
+  tick_gt: Int
+  tick_lt: Int
+  tick_gte: Int
+  tick_lte: Int
+  ticketId: BigInt
+  ticketId_not: BigInt
+  ticketId_in: [BigInt]
+  ticketId_not_in: [BigInt]
+  ticketId_gt: BigInt
+  ticketId_lt: BigInt
+  ticketId_gte: BigInt
+  ticketId_lte: BigInt
+  player: String
+  player_not: String
+  player_in: [String]
+  player_not_in: [String]
+  player_contains: String
+  player_not_contains: String
+  player_starts_with: String
+  player_ends_with: String
+  player_not_starts_with: String
+  player_not_ends_with: String
+}
+
+type ticket {
+  id: String!
+  ticketId: BigInt!
+  poolId: String!
+  player: String!
+  currency: String!
+  fee: BigInt!
+  issuedTx: String!
+  issuedBlock: BigInt!
+  drawableFrom: BigInt!
+  expiresAfter: BigInt!
+  drawn: Boolean!
+  roll: BigInt
+  payoutEth: BigInt
+  payoutIce: BigInt
+}
+
+type ticketPage {
+  items: [ticket!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input ticketFilter {
+  AND: [ticketFilter]
+  OR: [ticketFilter]
+  id: String
+  id_not: String
+  id_in: [String]
+  id_not_in: [String]
+  id_contains: String
+  id_not_contains: String
+  id_starts_with: String
+  id_ends_with: String
+  id_not_starts_with: String
+  id_not_ends_with: String
+  id_contains_nocase: String
+  id_not_contains_nocase: String
+  id_starts_with_nocase: String
+  id_ends_with_nocase: String
+  id_not_starts_with_nocase: String
+  id_not_ends_with_nocase: String
+  ticketId: BigInt
+  ticketId_not: BigInt
+  ticketId_in: [BigInt]
+  ticketId_not_in: [BigInt]
+  ticketId_gt: BigInt
+  ticketId_lt: BigInt
+  ticketId_gte: BigInt
+  ticketId_lte: BigInt
+  poolId: String
+  poolId_not: String
+  poolId_in: [String]
+  poolId_not_in: [String]
+  poolId_contains: String
+  poolId_not_contains: String
+  poolId_starts_with: String
+  poolId_ends_with: String
+  poolId_not_starts_with: String
+  poolId_not_ends_with: String
+  player: String
+  player_not: String
+  player_in: [String]
+  player_not_in: [String]
+  player_contains: String
+  player_not_contains: String
+  player_starts_with: String
+  player_ends_with: String
+  player_not_starts_with: String
+  player_not_ends_with: String
+  currency: String
+  currency_not: String
+  currency_in: [String]
+  currency_not_in: [String]
+  currency_contains: String
+  currency_not_contains: String
+  currency_starts_with: String
+  currency_ends_with: String
+  currency_not_starts_with: String
+  currency_not_ends_with: String
+  fee: BigInt
+  fee_not: BigInt
+  fee_in: [BigInt]
+  fee_not_in: [BigInt]
+  fee_gt: BigInt
+  fee_lt: BigInt
+  fee_gte: BigInt
+  fee_lte: BigInt
+  issuedTx: String
+  issuedTx_not: String
+  issuedTx_in: [String]
+  issuedTx_not_in: [String]
+  issuedTx_contains: String
+  issuedTx_not_contains: String
+  issuedTx_starts_with: String
+  issuedTx_ends_with: String
+  issuedTx_not_starts_with: String
+  issuedTx_not_ends_with: String
+  issuedBlock: BigInt
+  issuedBlock_not: BigInt
+  issuedBlock_in: [BigInt]
+  issuedBlock_not_in: [BigInt]
+  issuedBlock_gt: BigInt
+  issuedBlock_lt: BigInt
+  issuedBlock_gte: BigInt
+  issuedBlock_lte: BigInt
+  drawableFrom: BigInt
+  drawableFrom_not: BigInt
+  drawableFrom_in: [BigInt]
+  drawableFrom_not_in: [BigInt]
+  drawableFrom_gt: BigInt
+  drawableFrom_lt: BigInt
+  drawableFrom_gte: BigInt
+  drawableFrom_lte: BigInt
+  expiresAfter: BigInt
+  expiresAfter_not: BigInt
+  expiresAfter_in: [BigInt]
+  expiresAfter_not_in: [BigInt]
+  expiresAfter_gt: BigInt
+  expiresAfter_lt: BigInt
+  expiresAfter_gte: BigInt
+  expiresAfter_lte: BigInt
+  drawn: Boolean
+  drawn_not: Boolean
+  drawn_in: [Boolean]
+  drawn_not_in: [Boolean]
+  roll: BigInt
+  roll_not: BigInt
+  roll_in: [BigInt]
+  roll_not_in: [BigInt]
+  roll_gt: BigInt
+  roll_lt: BigInt
+  roll_gte: BigInt
+  roll_lte: BigInt
+  payoutEth: BigInt
+  payoutEth_not: BigInt
+  payoutEth_in: [BigInt]
+  payoutEth_not_in: [BigInt]
+  payoutEth_gt: BigInt
+  payoutEth_lt: BigInt
+  payoutEth_gte: BigInt
+  payoutEth_lte: BigInt
+  payoutIce: BigInt
+  payoutIce_not: BigInt
+  payoutIce_in: [BigInt]
+  payoutIce_not_in: [BigInt]
+  payoutIce_gt: BigInt
+  payoutIce_lt: BigInt
+  payoutIce_gte: BigInt
+  payoutIce_lte: BigInt
+}
+
+type tankFill {
+  id: String!
+  tx: String!
+  block: BigInt!
+  timestamp: BigInt!
+  poolId: String!
+  player: String!
+  pees: BigInt!
+  iceAdded: BigInt!
+}
+
+type tankFillPage {
+  items: [tankFill!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input tankFillFilter {
+  AND: [tankFillFilter]
+  OR: [tankFillFilter]
+  id: String
+  id_not: String
+  id_in: [String]
+  id_not_in: [String]
+  id_contains: String
+  id_not_contains: String
+  id_starts_with: String
+  id_ends_with: String
+  id_not_starts_with: String
+  id_not_ends_with: String
+  id_contains_nocase: String
+  id_not_contains_nocase: String
+  id_starts_with_nocase: String
+  id_ends_with_nocase: String
+  id_not_starts_with_nocase: String
+  id_not_ends_with_nocase: String
+  tx: String
+  tx_not: String
+  tx_in: [String]
+  tx_not_in: [String]
+  tx_contains: String
+  tx_not_contains: String
+  tx_starts_with: String
+  tx_ends_with: String
+  tx_not_starts_with: String
+  tx_not_ends_with: String
+  block: BigInt
+  block_not: BigInt
+  block_in: [BigInt]
+  block_not_in: [BigInt]
+  block_gt: BigInt
+  block_lt: BigInt
+  block_gte: BigInt
+  block_lte: BigInt
+  timestamp: BigInt
+  timestamp_not: BigInt
+  timestamp_in: [BigInt]
+  timestamp_not_in: [BigInt]
+  timestamp_gt: BigInt
+  timestamp_lt: BigInt
+  timestamp_gte: BigInt
+  timestamp_lte: BigInt
+  poolId: String
+  poolId_not: String
+  poolId_in: [String]
+  poolId_not_in: [String]
+  poolId_contains: String
+  poolId_not_contains: String
+  poolId_starts_with: String
+  poolId_ends_with: String
+  poolId_not_starts_with: String
+  poolId_not_ends_with: String
+  player: String
+  player_not: String
+  player_in: [String]
+  player_not_in: [String]
+  player_contains: String
+  player_not_contains: String
+  player_starts_with: String
+  player_ends_with: String
+  player_not_starts_with: String
+  player_not_ends_with: String
+  pees: BigInt
+  pees_not: BigInt
+  pees_in: [BigInt]
+  pees_not_in: [BigInt]
+  pees_gt: BigInt
+  pees_lt: BigInt
+  pees_gte: BigInt
+  pees_lte: BigInt
+  iceAdded: BigInt
+  iceAdded_not: BigInt
+  iceAdded_in: [BigInt]
+  iceAdded_not_in: [BigInt]
+  iceAdded_gt: BigInt
+  iceAdded_lt: BigInt
+  iceAdded_gte: BigInt
+  iceAdded_lte: BigInt
+}
+
+type potSnapshot {
+  id: String!
+  block: BigInt!
+  eth: BigInt!
+  ice: BigInt!
+}
+
+type potSnapshotPage {
+  items: [potSnapshot!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input potSnapshotFilter {
+  AND: [potSnapshotFilter]
+  OR: [potSnapshotFilter]
+  id: String
+  id_not: String
+  id_in: [String]
+  id_not_in: [String]
+  id_contains: String
+  id_not_contains: String
+  id_starts_with: String
+  id_ends_with: String
+  id_not_starts_with: String
+  id_not_ends_with: String
+  id_contains_nocase: String
+  id_not_contains_nocase: String
+  id_starts_with_nocase: String
+  id_ends_with_nocase: String
+  id_not_starts_with_nocase: String
+  id_not_ends_with_nocase: String
+  block: BigInt
+  block_not: BigInt
+  block_in: [BigInt]
+  block_not_in: [BigInt]
+  block_gt: BigInt
+  block_lt: BigInt
+  block_gte: BigInt
+  block_lte: BigInt
+  eth: BigInt
+  eth_not: BigInt
+  eth_in: [BigInt]
+  eth_not_in: [BigInt]
+  eth_gt: BigInt
+  eth_lt: BigInt
+  eth_gte: BigInt
+  eth_lte: BigInt
+  ice: BigInt
+  ice_not: BigInt
+  ice_in: [BigInt]
+  ice_not_in: [BigInt]
+  ice_gt: BigInt
+  ice_lt: BigInt
+  ice_gte: BigInt
+  ice_lte: BigInt
+}
+
+type player {
+  address: String!
+  tickets: BigInt!
+  totalFees: BigInt!
+  totalPayouts: BigInt!
+}
+
+type playerPage {
+  items: [player!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input playerFilter {
+  AND: [playerFilter]
+  OR: [playerFilter]
+  address: String
+  address_not: String
+  address_in: [String]
+  address_not_in: [String]
+  address_contains: String
+  address_not_contains: String
+  address_starts_with: String
+  address_ends_with: String
+  address_not_starts_with: String
+  address_not_ends_with: String
+  tickets: BigInt
+  tickets_not: BigInt
+  tickets_in: [BigInt]
+  tickets_not_in: [BigInt]
+  tickets_gt: BigInt
+  tickets_lt: BigInt
+  tickets_gte: BigInt
+  tickets_lte: BigInt
+  totalFees: BigInt
+  totalFees_not: BigInt
+  totalFees_in: [BigInt]
+  totalFees_not_in: [BigInt]
+  totalFees_gt: BigInt
+  totalFees_lt: BigInt
+  totalFees_gte: BigInt
+  totalFees_lte: BigInt
+  totalPayouts: BigInt
+  totalPayouts_not: BigInt
+  totalPayouts_in: [BigInt]
+  totalPayouts_not_in: [BigInt]
+  totalPayouts_gt: BigInt
+  totalPayouts_lt: BigInt
+  totalPayouts_gte: BigInt
+  totalPayouts_lte: BigInt
+}
+
+type dailyVolume {
+  day: String!
+  ethVolume: BigInt!
+  iceVolume: BigInt!
+  trades: BigInt!
+}
+
+type dailyVolumePage {
+  items: [dailyVolume!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+input dailyVolumeFilter {
+  AND: [dailyVolumeFilter]
+  OR: [dailyVolumeFilter]
+  day: String
+  day_not: String
+  day_in: [String]
+  day_not_in: [String]
+  day_contains: String
+  day_not_contains: String
+  day_starts_with: String
+  day_ends_with: String
+  day_not_starts_with: String
+  day_not_ends_with: String
+  day_contains_nocase: String
+  day_not_contains_nocase: String
+  day_starts_with_nocase: String
+  day_ends_with_nocase: String
+  day_not_starts_with_nocase: String
+  day_not_ends_with_nocase: String
+  ethVolume: BigInt
+  ethVolume_not: BigInt
+  ethVolume_in: [BigInt]
+  ethVolume_not_in: [BigInt]
+  ethVolume_gt: BigInt
+  ethVolume_lt: BigInt
+  ethVolume_gte: BigInt
+  ethVolume_lte: BigInt
+  iceVolume: BigInt
+  iceVolume_not: BigInt
+  iceVolume_in: [BigInt]
+  iceVolume_not_in: [BigInt]
+  iceVolume_gt: BigInt
+  iceVolume_lt: BigInt
+  iceVolume_gte: BigInt
+  iceVolume_lte: BigInt
+  trades: BigInt
+  trades_not: BigInt
+  trades_in: [BigInt]
+  trades_not_in: [BigInt]
+  trades_gt: BigInt
+  trades_lt: BigInt
+  trades_gte: BigInt
+  trades_lte: BigInt
+}
